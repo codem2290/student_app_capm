@@ -13,12 +13,13 @@ aspect customAscpect {
 
 entity Students : cuid, managed, customAscpect {
     //key studentID : UUID;
-    name   : nameType;
-    adress : String;
-    email  : nameType;
-    mobile : String;
-    age    : Integer;
-    gender : String;
+    name    : nameType;
+    adress  : String;
+    email   : nameType;
+    mobile  : String;
+    age     : Integer;
+    gender  : String;
+    //courses : Composition of many Cours
 }
 
 
@@ -32,7 +33,7 @@ entity Courses : cuid, managed, customAscpect {
 
 
 entity Address {
-    key addressID   : Integer;
+    key addressID   : UUID;
         description : String;
         city        : String;
         country     : String;
@@ -41,11 +42,27 @@ entity Address {
 
 
 entity Department {
-    key ID: UUID;
-    name: String;
+    key ID   : UUID;
+        name : String;
 }
+
 entity Enrollments {
     key id           : UUID;
         enrolledDate : Date;
         cost         : Decimal(10, 2);
 }
+
+
+entity Books : cuid {
+    name          : String;
+    title         : String;
+    publishedDate : String;
+    author: Association to Authors;// managed assocaition
+}
+
+entity Authors: cuid {
+    name: String;
+    books: Composition of many Books on books.author = $self;
+}
+
+

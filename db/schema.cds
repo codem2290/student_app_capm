@@ -38,3 +38,9 @@ entity Address {
         country     : String;
         pincode     : Integer;
 }
+
+
+entity Department {
+    key ID: UUID;
+    name: String;
+}

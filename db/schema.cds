@@ -40,6 +40,10 @@ entity Address {
 }
 
 
+entity Department {
+    key ID: UUID;
+    name: String;
+}
 entity Enrollments {
     key id           : UUID;
         enrolledDate : Date;

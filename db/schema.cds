@@ -1,28 +1,40 @@
 namespace student.db;
 
-using { cuid, managed } from '@sap/cds/common';
+using {
+    cuid,
+    managed
+} from '@sap/cds/common';
 
-type nameType: String(50);
+type nameType : String(50);
 
 aspect customAscpect {
-    status: String;
+    status : String;
 }
 
-entity Students: cuid, managed, customAscpect {
+entity Students : cuid, managed, customAscpect {
     //key studentID : UUID;
-        name      : nameType;
-        adress    : String;
-        email     : nameType;
-        mobile    : String;
-        age       : Integer;
-        gender    : String;
+    name   : nameType;
+    adress : String;
+    email  : nameType;
+    mobile : String;
+    age    : Integer;
+    gender : String;
 }
 
 
-entity Courses: cuid, managed, customAscpect {
+entity Courses : cuid, managed, customAscpect {
     //key courseID : UUID;
-        name     : nameType;
-        cost     : Decimal(10, 2);
-        trainer  : String;
-        duration : Integer;
+    name     : nameType;
+    cost     : Decimal(10, 2);
+    trainer  : String;
+    duration : Integer;
+}
+
+
+entity Address {
+    key addressID   : Integer;
+        description : String;
+        city        : String;
+        country     : String;
+        pincode     : Integer;
 }

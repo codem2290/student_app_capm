@@ -38,3 +38,10 @@ entity Address {
         country     : String;
         pincode     : Integer;
 }
+
+
+entity Enrollments {
+    key id           : UUID;
+        enrolledDate : Date;
+        cost         : Decimal(10, 2);
+}

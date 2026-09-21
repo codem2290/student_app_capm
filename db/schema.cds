@@ -44,3 +44,8 @@ entity Department {
     key ID: UUID;
     name: String;
 }
+entity Enrollments {
+    key id           : UUID;
+        enrolledDate : Date;
+        cost         : Decimal(10, 2);
+}

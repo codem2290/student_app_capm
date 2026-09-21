@@ -1,0 +1,27 @@
+### Reading Data from Students Table
+GET http://localhost:4004/odata/v4/student-api/StudentSet
+
+### Creating record in Students Table
+POST http://localhost:4004/odata/v4/student-api/StudentSet
+Content-Type: application/json
+
+{
+      "name": "John Doe",
+      "adress": "327 Main St, Philadelphia",
+      "email": "Jonh.doe@example.com",
+      "mobile": "+1-666-901-4433",
+      "age": 35,
+      "gender": "Male"
+}
+
+
+### Update Data
+PATCH http://localhost:4004/odata/v4/student-api/StudentSet(studentID='32bb1d29-c454-41d3-a551-ff7251780447')
+Content-Type: application/json
+
+{
+      "email": "david.smith@outlook.com"
+}
+
+### Delete
+DELETE http://localhost:4004/odata/v4/student-api/StudentSet('32bb1d29-c454-41d3-a551-ff7251780447')

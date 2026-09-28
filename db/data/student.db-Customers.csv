@@ -1,0 +1,6 @@
+customerID,name,address,email,mobile,country_code
+12a7fc60-666f-48a7-ac24-2fcb9a3bf8e6,Jane Doe,"123 Maple St, Springfield",jane.doe@example.com,+1-555-0101,US
+4c9e8b77-feb2-4fb7-9925-1a783ff3c086,John Smith,"456 Oak Rd, Metropolis",john.smith@example.com,+1-555-0102,IN
+93ddb75b-f84d-432b-a5d2-ca7bc4e13ceb,Alice Johnson,"789 Pine Ave, Gotham",alice.j@example.com,+1-555-0103,JP
+65a52747-2505-47f3-a913-09ce5c51506e,Bob Brown,"321 Elm Blvd, Coast City",bob.b@example.com,+1-555-0104,FR
+432ce626-eb75-4d8e-8127-34b15edad6c3,Charlie Green,"654 Cedar Ln, Star City",charlie.g@example.com,+1-555-0105,BR

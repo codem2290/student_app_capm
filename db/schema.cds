@@ -2,7 +2,8 @@ namespace student.db;
 
 using {
     cuid,
-    managed
+    managed,
+    Country
 } from '@sap/cds/common';
 
 type nameType : String(50);
@@ -13,13 +14,13 @@ aspect customAscpect {
 
 entity Students : cuid, managed, customAscpect {
     //key studentID : UUID;
-    name    : nameType;
-    adress  : String;
-    email   : nameType;
-    mobile  : String;
-    age     : Integer;
-    gender  : String;
-    //courses : Composition of many Cours
+    name   : nameType;
+    adress : String;
+    email  : nameType;
+    mobile : String;
+    age    : Integer;
+    gender : String;
+//courses : Composition of many Cours
 }
 
 
@@ -57,12 +58,58 @@ entity Books : cuid {
     name          : String;
     title         : String;
     publishedDate : String;
-    author: Association to Authors;// managed assocaition
+    author        : Association to Authors; // managed assocaition
 }
 
-entity Authors: cuid {
-    name: String;
-    books: Composition of many Books on books.author = $self;
+entity Authors : cuid {
+    name  : String;
+    books : Composition of many Books
+                on books.author = $self;
+}
+
+entity Departments {
+    key departmentID : Integer;
+        name         : String(50);
+}
+
+entity Employees {
+    key ID         : UUID;
+        name       : String(50);
+        address    : String(200);
+        email      : String(50);
+        department : Association to Departments;
+}
+
+entity Orders {
+    key orderID    : UUID;
+        orderDate  : Date;
+        customer   : Association to Customers;
+        orderitems : Composition of many OrderItems
+                         on orderitems.order = $self;
+}
+
+entity Customers {
+    key customerID : UUID;
+        //key id         : UUID;
+        name       : String(50) @title: '{i18n>name}';
+        address    : String     @title: '{i18n>Address}';
+        email      : String     @title: '{i18n>Email}';
+        mobile     : String     @title: '{i18n>Mobile}';
+        orders     : Composition of many Orders
+                         on orders.customer = $self;
+        country    : Country;
 }
 
 
+entity OrderItems {
+    key id       : UUID;
+        product  : String(100);
+        quantity : Integer;
+        order    : Association to Orders;
+}
+
+entity Status {
+    key id          : Integer;
+        name        : String;
+        criticality : Integer;
+}

@@ -1,25 +1,42 @@
 {
-  "name": "student_app",
-  "version": "1.0.0",
-  "type": "module",
-  "dependencies": {
-    "@sap/cds": "^10"
-  },
-  "devDependencies": {
-    "@cap-js/sqlite": "^3"
-  },
-  "scripts": {
-    "start": "cds-serve"
-  },
-  "private": true,
-  "cds": {
-    "requires": {
-      "db": {
-        "kind": "sqlite",
-        "credentials": {
-          "url": "db.sqlite"
-        }
-      }
-    }
-  }
+	"name": "student_app",
+	"version": "1.0.0",
+	"type": "module.cjs",
+	"dependencies": {
+		"@cap-js/hana": "^3",
+		"@sap/cds": "^10",
+		"@sap/xssec": "^4"
+	},
+	"devDependencies": {
+		"@cap-js/sqlite": "^3",
+		"@sap/cds-dk": "^10",
+		"cds-plugin-ui5": "^0.17.0",
+		"@sap/dev-cap-tools": "^1.31.0"
+	},
+	"scripts": {
+		"start": "cds-serve",
+		"watch-customer_order_details": "cds watch --open com.customer.app.customerorderdetails/index.html?sap-ui-xx-viewCache=false --livereload false"
+	},
+	"private": true,
+	"cds": {
+		"requires": {
+			"[development]": {
+				"db": {
+					"kind": "hana"
+				}
+			},
+			"[production]": {
+				"db": {
+					"kind": "hana"
+				},
+				"auth": "xsuaa"
+			}
+		}
+	},
+	"workspaces": [
+		"app/*"
+	],
+	"sapux": [
+		"app/customer_order_details"
+	]
 }

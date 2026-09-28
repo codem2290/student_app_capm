@@ -1,20 +1,27 @@
 {
-  "version": "0.2.0",
+  "version": "",
   "configurations": [
     {
-      "name": "cds serve",
+      "name": "Run student_app-1",
       "request": "launch",
       "type": "node",
-      "cwd": "${workspaceFolder}",
+      "cwd": "${workspaceFolder}/",
       "runtimeExecutable": "cds",
       "args": [
-        "serve",
-        "--with-mocks",
-        "--in-memory?"
+        "watch",
+        "--profile",
+        "hybrid"
       ],
+      "console": "internalConsole",
+      "internalConsoleOptions": "openOnSessionStart",
       "skipFiles": [
         "<node_internals>/**"
-      ]
+      ],
+      "envFile": "${workspaceFolder}/employee_leave_management/.env1",
+      "env": {
+        "NODE_ENV": "development",
+        "run.config": "{\"handlerId\":\"cap_run_config_handler_id\",\"runnableId\":\"{\\\"projectPath\\\":\\\"/home/user/projects/employee_leave_management\\\",\\\"profileName\\\":\\\"hybrid\\\"}\"}"
+      }
     }
   ]
 }

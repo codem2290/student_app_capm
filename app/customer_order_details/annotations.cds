@@ -63,8 +63,53 @@ annotate service.Customers with @(
                 $Type : 'UI.DataField',
                 Value : name,
             },
+            {
+                $Type : 'UI.DataField',
+                Value : status.name,
+                Label : 'Status',
+                Criticality : status.criticality,
+                CriticalityRepresentation : #WithIcon,
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : product_productID,
+                Label : 'Products',
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : product.name,
+                Label : 'Product Name',
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : product.price,
+                Label : 'Price',
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : product.description,
+                Label : 'Description',
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : product.category,
+                Label : 'Category',
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : product.stock,
+                Label : 'Stock',
+            },
         ],
     },
+    UI.Identification : [
+        {
+            $Type : 'UI.DataFieldForAction',
+            Action : 'StudentAPIService.updateCustomer',
+            Label : 'Deactivate',
+            Criticality : #Negative,
+        },
+    ],
 );
 
 annotate service.Orders with @(
@@ -87,3 +132,66 @@ annotate service.Orders with @(
     ]
 );
 
+annotate service.Status with {
+    name @Common.FieldControl : #ReadOnly
+};
+
+annotate service.Customers with {
+    product @(
+        Common.ValueList : {
+            $Type : 'Common.ValueListType',
+            CollectionPath : 'Products',
+            Parameters : [
+                {
+                    $Type : 'Common.ValueListParameterInOut',
+                    LocalDataProperty : product_productID,
+                    ValueListProperty : 'productID',
+                },
+                {
+                    $Type : 'Common.ValueListParameterDisplayOnly',
+                    ValueListProperty : 'name',
+                },
+                {
+                    $Type : 'Common.ValueListParameterDisplayOnly',
+                    ValueListProperty : 'price',
+                },
+                {
+                    $Type : 'Common.ValueListParameterDisplayOnly',
+                    ValueListProperty : 'category',
+                },
+                {
+                    $Type : 'Common.ValueListParameterDisplayOnly',
+                    ValueListProperty : 'description',
+                },
+            ],
+        },
+        Common.ValueListWithFixedValues : false,
+)};
+
+
+
+annotate service.Customers with @(
+    Common.SideEffects #updateProduct: {
+        SourceProperties : [
+            'product_productID',
+        ],
+        TargetProperties : [
+            'product/name',
+            'product/category',
+            'product/description',
+            'product/price',
+            'product/stock'
+        ]
+    }
+);
+
+annotate service.Customers with @(
+    Common.SideEffects #updateStatus: {
+        SourceProperties : [
+            'status_id',
+        ],
+        TargetProperties : [
+            'status/name',
+        ]
+    }
+);

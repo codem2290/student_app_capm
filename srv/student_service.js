@@ -1,4 +1,5 @@
 const cds = require("@sap/cds");
+const { SELECT, UPDATE } = require("@sap/cds/lib/ql/cds-ql");
 
 class StudentAPIService extends cds.ApplicationService {
     init() {
@@ -29,7 +30,42 @@ class StudentAPIService extends cds.ApplicationService {
         });
 
         this.on("updateCustomerStatus", async (req) => {
-            debugger;
+            const { customerID, name } = req.data;
+
+            if(customerID){
+                let customerData = await SELECT.one.from(Customers).where({
+                    "customerID": customerID
+                });
+
+                if(!customerData){
+                    return req.reject(404, "Customer Record Not Found!");
+                }
+
+                await UPDATE(Customers).set({
+                    status_id: 1
+                }).where({
+                    "customerID": customerID
+                });
+
+                return "Status Updated Successfully!";
+
+            }
+
+
+        });
+
+        this.on("updateCustomer", async (req) => {
+            const { customerID } = req.params[0];
+
+            if(customerID) {
+                await UPDATE(Customers).set({
+                    status_id: 2
+                }).where({
+                    "customerID": customerID
+                });
+            }
+
+            return;
         });
 
         return super.init();

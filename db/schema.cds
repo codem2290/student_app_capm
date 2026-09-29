@@ -98,6 +98,8 @@ entity Customers {
         orders     : Composition of many Orders
                          on orders.customer = $self;
         country    : Country;
+        status     : Association to Status;
+        product    : Association to Products;
 }
 
 
@@ -112,4 +114,14 @@ entity Status {
     key id          : Integer;
         name        : String;
         criticality : Integer;
+}
+
+
+entity Products {
+    key productID   : Integer;
+        name        : String;
+        price       : Decimal(10, 2);
+        category    : String;
+        description : String;
+        stock       : Integer;
 }

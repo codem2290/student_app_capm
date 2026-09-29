@@ -25,3 +25,24 @@ Content-Type: application/json
 
 ### Delete
 DELETE http://localhost:4004/odata/v4/student-api/StudentSet('32bb1d29-c454-41d3-a551-ff7251780447')
+
+
+### Composition examples
+POST http://localhost:4004/odata/v4/student-api/Authors
+Content-Type: application/json
+
+{
+      "name": "John Doe",
+      "books": [
+            {
+                  "name": "SAP Learning BTP",
+                  "title":  "BTP Book",
+                  "publishedDate": "10-10-2020"
+            },
+            {
+                  "name": "BTP CAPM",
+                  "title":  "BTP CAPM",
+                  "publishedDate": "10-10-2021"
+            }
+      ]
+}

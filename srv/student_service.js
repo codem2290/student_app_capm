@@ -2,8 +2,10 @@ const cds = require("@sap/cds");
 const { SELECT, UPDATE } = require("@sap/cds/lib/ql/cds-ql");
 
 class StudentAPIService extends cds.ApplicationService {
-    init() {
-        const { Customers, Orders } = this.entities;
+    async init() {
+        const externalDb = await cds.connect.to('API_BUSINESS_PARTNER');
+        const onpremise = await cds.connect.to('EmployeeService');
+        const { Customers, Orders, A_BusinessPartner, EmployeeSet } = this.entities;
         this.before('UPDATE', Customers.drafts, (req) => {
             //debugger;
 
@@ -32,12 +34,12 @@ class StudentAPIService extends cds.ApplicationService {
         this.on("updateCustomerStatus", async (req) => {
             const { customerID, name } = req.data;
 
-            if(customerID){
+            if (customerID) {
                 let customerData = await SELECT.one.from(Customers).where({
                     "customerID": customerID
                 });
 
-                if(!customerData){
+                if (!customerData) {
                     return req.reject(404, "Customer Record Not Found!");
                 }
 
@@ -57,7 +59,7 @@ class StudentAPIService extends cds.ApplicationService {
         this.on("updateCustomer", async (req) => {
             const { customerID } = req.params[0];
 
-            if(customerID) {
+            if (customerID) {
                 await UPDATE(Customers).set({
                     status_id: 2
                 }).where({
@@ -67,6 +69,16 @@ class StudentAPIService extends cds.ApplicationService {
 
             return;
         });
+
+
+        this.on('READ', A_BusinessPartner, async (req) => {
+            return await externalDb.run(req.query);
+        });
+
+        this.on('READ', EmployeeSet, async (req) => {
+            return await onpremise.run(req.query);
+        });
+
 
         return super.init();
     }
